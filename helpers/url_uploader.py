@@ -35,7 +35,7 @@ def gd_link_dl(url, file_path):
 
 async def leecher2(bot , u):
     if not u.reply_to_message:
-        await u.reply_text(text=f"Reply To Your Direct Link !", quote=True)
+        await u.reply_text(text=f"ریپلای بزن !", quote=True)
         return
     
     sw = "direct"
@@ -78,7 +78,7 @@ async def leecher2(bot , u):
                 await m.reply_text(text=f"Error:\n\n{e}", quote=True)
                 return
     
-    msg = await m.reply_text(text=f"`Analyzing Your Link ...`", quote=True)
+    msg = await m.reply_text(text=f"`در حال امارگیری ...`", quote=True)
     
     if ("youtube.com" in url) or ("youtu.be" in url):
         await ytdl(bot, m, msg, url)
@@ -95,11 +95,11 @@ async def leecher2(bot , u):
         print(f"file downloaded to {file_path} .")
     except Exception as e:
         if 'drive.google.com' in url:
-            await msg.edit(f"Google Drive Link Detected !\n\n`Downloading ...`\n\n**Please Wait.**")
+            await msg.edit(f"نریدی !\n\n`Downloading ...`\n\n**Please Wait.**")
             sw = "gd"
         else:
             print(e)
-            await msg.edit(f"Download Link is Invalid or not Accessible !\n\n**Error:** {e}")
+            await msg.edit(f"ریدی !\n\n**Error:** {e}")
             return
     
     if sw == "gd":
@@ -112,16 +112,16 @@ async def leecher2(bot , u):
             url = "https://drive.google.com/u/0/uc?id=" + str(gid) + "&export=download"
             pass
         else:
-            await msg.edit(f"❌ Gdrive Link is Invalid ! \n\n **Error:** {e}")
+            await msg.edit(f"❌ ریدی! \n\n **Error:** {e}")
             return
         
         await gd_link_dl(url, file_path)
         if not os.path.exists(file_path):
-            await msg.edit(f"❌ Gdrive Download Error.")
+            await msg.edit(f"❌ ریدم.")
             await clean_up(file_path)
             return
         
-    await msg.edit(f"✅ **Successfully Downloaded**\n\n{file_path}")
+    await msg.edit(f"✅ **داملود شد**\n\n{file_path}")
     filename = os.path.basename(file_path)
     filename = filename.replace('%40','@')
     filename = filename.replace('%25','_')
@@ -165,9 +165,9 @@ async def leecher2(bot , u):
                 return    
     else:
         # Split Large Files
-        logger.info(f"Large File. Size: {size} ! --- Spliting")
+        logger.info(f"فایل بزرگ. Size: {size} ! --- Spliting")
         await msg.edit_text(
-            "Telegram does not support uploading this file."
+            "تلگرام اجازه نمیده بمولا"
             f"\nDetected File Size: {size}"
             "\n trying to split the files."
         )
