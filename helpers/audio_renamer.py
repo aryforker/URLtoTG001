@@ -21,7 +21,7 @@ async def rna2(bot , u):
   file_path = None
   
   if not u.reply_to_message:
-    await u.reply_text(text=f" روی اهنگت ریپلای بزن!\n\nExample:\n**/rna | filename**\n\nsee /help.", quote=True)
+    await u.reply_text(text=f" روی اهنگت ریپلای بزن!\n\nExample:\n**/rna . filename**\n\nsee /help.", quote=True)
     return
   
   logger.info(f"status: {status}")
@@ -36,7 +36,7 @@ async def rna2(bot , u):
     fsize = get_size(ft.file_size)
   else:
     await m.reply_text(text=f"خواهش میکنم رو اهنگت ریپ بزن\n\nSee /help", quote=True)
-    logger.info(f"No Audio File !")
+    logger.info(f"خواهش میکنم رو اهنگت ریپ بزن")
     return
   
   audio_types = ['.aac', '.m4a', '.mp3', '.wma', '.mka', '.wav', '.oga', '.ogg', '.ra', '.flac', '.amr', '.opus', '.alac', '.aiff']
@@ -47,7 +47,7 @@ async def rna2(bot , u):
     pass
   else:
     await m.reply_text(text=f"خواهش میکنم رو اهنگت ریپ بزن\n\nSee /help", quote=True)
-    logger.info(f"No Audio File !")
+    logger.info(f"خواهش میکنم رو اهنگت ریپ بزن")
     return
   
   tnow = str(datetime.datetime.now())
@@ -67,16 +67,16 @@ async def rna2(bot , u):
   
   print("oldname = ", oldname)
   #########################
-  args = u.text.split("|")
+  args = u.text.split(".")
   if len(args) <= 1:
-    await m.reply_text(text=f"ریدی\n\nExample:\n`/rna | filename`\n\nsee /hlep.", quote=True)
+    await m.reply_text(text=f"ریدی\n\nExample:\n`/rna . filename`\n\nsee /hlep.", quote=True)
     return
   #########################
   if len(args) == 2:
-    cmd, newname = u.text.split("|", 1)
+    cmd, newname = u.text.split(".", 1)
     newname = newname.strip()
     if newname == "-":
-      await m.reply_text(text=f"ریدی\n\nExample:\n`/rna | filename`\n\nsee /hlep.", quote=True)
+      await m.reply_text(text=f"ریدی\n\nExample:\n`/rna . filename`\n\nsee /hlep.", quote=True)
       return
                   
     if m.audio and m.audio.title:
@@ -89,13 +89,13 @@ async def rna2(bot , u):
       newartist = None
   
   elif len(args) == 3:
-    cmd, newname, newtitle = u.text.split("|", 2)
+    cmd, newname, newtitle = u.text.split(".", 2)
     newname = newname.strip()
     newtitle = newtitle.strip()
                   
     if newname == "-":
       if newtitle == "-":
-        await m.reply_text(text=f"ریدی\n\nExample:\n`/rna | filename`\n\nsee /hlep.", quote=True)
+        await m.reply_text(text=f"ریدی\n\nExample:\n`/rna . filename`\n\nsee /hlep.", quote=True)
         return  
                   
     if newname == "-":
@@ -112,14 +112,14 @@ async def rna2(bot , u):
         newartist = None
   
   elif len(args) == 4:
-    cmd, newname, newtitle, newartist = u.text.split("|", 3)
+    cmd, newname, newtitle, newartist = u.text.split(".", 3)
     newname = newname.strip()
     newtitle = newtitle.strip()
     newartist = newartist.strip()
     if newname == "-":
       if newtitle == "-":
         if newartist == "-":
-          await m.reply_text(text=f"ریدی\n\nExample:\n`/rna | filename`\n\nsee /hlep.", quote=True)
+          await m.reply_text(text=f"ریدی\n\nExample:\n`/rna . filename`\n\nsee /hlep.", quote=True)
           return
           
     if newname == "-":
@@ -138,14 +138,14 @@ async def rna2(bot , u):
         newartist = None
 
   else:
-    await m.reply_text(text=f"بازم تست کن\n\nExample:\n**/rna | filename**\n**/rna | filename | title(optional) | artists(optional)**", quote=True)
+    await m.reply_text(text=f"بازم تست کن\n\nExample:\n**/rna . filename**\n**/rna . filename . title(optional) . artists(optional)**", quote=True)
     return
 
   if os.path.splitext(newname)[1]:
     if os.path.splitext(newname)[1] in audio_types:
       pass
     else:
-      await m.reply_text(text=f"use audio extension for new name !\n\nExample:\n**/rna | filename**\n**/rna | filename | title(optional) | artists(optional)**", quote=True)
+      await m.reply_text(text=f"use audio extension for new name !\n\nExample:\n**/rna . filename**\n**/rna . filename . title(optional) . artists(optional)**", quote=True)
       fsw = "app"
       return
   else:
@@ -208,7 +208,7 @@ async def rna2(bot , u):
         reply_to_message_id=m.message_id,
         progress=progress_for_pyrogram,
         progress_args=(
-          f"⬆️ Uploading as Audio:",
+          f"⬆️ درحال اپلود پدرت",
           msg,
           c_time
         )
