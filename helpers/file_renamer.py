@@ -21,12 +21,12 @@ async def rnf2(bot , u):
   file_path = None
   
   if not u.reply_to_message:
-    await u.reply_text(text=f"Please Reply To Your Document !\n\nExample:\n**/rnf | filename.ext**\n\nsee /help.", quote=True)
+    await u.reply_text(text=f"روی فایلت ریپ بزن\n\nExample:\n**/rnf | filename.ext**\n\nsee /help.", quote=True)
     return
   
   logger.info(f"status: {status}")
   if status:
-    await u.reply_text(text=f"wait until last process finish. status: {status}", quote=True)
+    await u.reply_text(text=f"کمی صبر بخور. status: {status}", quote=True)
     return
   
   m = u.reply_to_message
@@ -38,13 +38,13 @@ async def rnf2(bot , u):
   elif m.document:
     ft = m.document
   else:
-    await m.reply_text(text=f"Please Reply to (audio-video-document) files !\n\nSee /help", quote=True)
+    await m.reply_text(text=f"اقا ریپلای رو بزن رو فایلت (audio-video-document) \n\nSee /help", quote=True)
     return
 
   fsize = get_size(ft.file_size)
   
   if not "|" in u.text:
-    await m.reply_text(text=f"Please Type New Filename with extension !\n\nExample:\n**/rnf | filename.ext**\n\nsee /help.", quote=True)
+    await m.reply_text(text=f"لدفن تازشو بده\n\nExample:\n**/rnf | filename.ext**\n\nsee /help.", quote=True)
     return
   else:
     args = u.text.split("|")
@@ -52,7 +52,7 @@ async def rnf2(bot , u):
       cmd , newname = u.text.split("|", 1)
       newname = newname.strip()
       if not os.path.splitext(newname)[1]:
-        await m.reply_text(text=f"Type Extension !\n\nExample:\n**/rnf | filename.ext\n\nsee /help.**", quote=True)
+        await m.reply_text(text=f"بفرس بینم\n\nExample:\n**/rnf | filename.ext\n\nsee /help.**", quote=True)
         return
       else:
         tnow = str(datetime.datetime.now())
@@ -72,7 +72,7 @@ async def rnf2(bot , u):
             oldname = oldname.replace(' ','_')
 
         print("oldname = ", oldname)
-        msg = await m.reply_text(text=f"⬇️ Trying To Download Document", quote=True)
+        msg = await m.reply_text(text=f"⬇️ درحال داملودم", quote=True)
         
         #################################################################### Downloading Document
         status = True
@@ -92,11 +92,11 @@ async def rnf2(bot , u):
         if not file_path:
           status = False
           logger.info(f"status: {status}")
-          await msg.edit(f"❌ Downloading Document Failed !")
+          await msg.edit(f"❌ ریدم !")
           await clean_up(file_path)
           return
         try:
-          await msg.edit(f"⬆️ Trying to Upload as Document ...")
+          await msg.edit(f"⬆️ صبر بقول ...")
           c_time = time.time()
           await bot.send_document(
             chat_id=m.chat.id,
@@ -117,10 +117,10 @@ async def rnf2(bot , u):
           await msg.delete()
           await clean_up(file_path)
         except Exception as e:
-          await msg.edit(f"❌ Uploading as Document Failed **Error:**\n\n{e}")
+          await msg.edit(f"❌ ریدم ک **Error:**\n\n{e}")
           status = False
           logger.info(f"status: {status}")
           await clean_up(file_path)
     else:
-      await m.reply_text(text=f"are you kidding me ?\n\nExample:\n`/rnf | filename.ext`\n\nsee /hlep.", quote=True)
+      await m.reply_text(text=f"ریدی دا بازم بفرس\n\nExample:\n`/rnf | filename.ext`\n\nsee /hlep.", quote=True)
       return
