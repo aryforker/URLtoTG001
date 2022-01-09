@@ -29,34 +29,18 @@ HELP_TXT = """
 یک بات ساده به یادخاله ام مریم عمه ام نیلوفر و رفیق عزیزم مجید و داییم حشمت و عمویم علیرضا 
 خودمم عالیانا
 
-/upload : reply to your url .
-    
-    `http://aaa.bbb.ccc/ddd.eee` | **fff.ggg**
-    or
-    `http://aaa.bbb.ccc/ddd.eee`
+فایل اهنگو بفرس
+سپس این متن پایینی رو ریپلای بزن روش
+/rna .to.ye.torki
 
-/c2v : ریپلای روی داگیومنت بزن تا ادیت کنم برایت
-    
-/rnv : ریپلای روی فیلمت بزن تا ادیتش نمایم. مثل:
-    
-    `/rnv | videoname`
-    
-/rna : ریپلای روی اهنگ بزن تا ادیتش کنم. \"`-`\" : برای خالی گذاشتن هم اینا.
-
-    `/rna | audioname | title | artists`
-    `/rna | audioname`
-    `/rna | - | title`
-    `/rna | - | - | artists`
-    
-/rnf : reply to your document. Example:
-
-    `/rnf | filename.ext`
+ویپگی خیلی داره بات از رِیسم بپرس برای اطلاعات بیشتر 
+@aryana_gha
 """
 
 @Client.on_message(filters.command(["start"]))
 async def start(client , m):
     """Send a message when the command /start is issued."""
-    await m.reply_text(text=f"Hi\n\nSee /help for More Info!")
+    await m.reply_text(text=f"دلام \n\nبمال /help برای اموزش")
 
     
 @Client.on_message(filters.command(["help"]))
