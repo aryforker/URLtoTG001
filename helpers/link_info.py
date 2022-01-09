@@ -8,11 +8,11 @@ logger = logging.getLogger(__name__)
 async def linfo2(bot , m):
     
   if ("youtube.com" in m.text) or ("youtu.be" in m.text):
-    await m.reply_text(text=f"Youtube Link. Use /upload.", quote=True)
+    await m.reply_text(text=f"Youtube Link. از /upload ایستفاده کن ", quote=True)
     return
   
   if "|" in m.text:
-    url , cfname = m.text.split("|", 1)
+    url , cfname = m.text.split(".", 1)
     url = url.strip()
     cfname = cfname.strip()
     cfname = cfname.replace('%40','@')
@@ -28,7 +28,7 @@ async def linfo2(bot , m):
         fn = fn.split("\',", 1)[0]
     #logger.info(r.text)
     logger.info(fn)
-    await m.reply_text(text=f"📋 Link Info:\n\nFile: `{fn}`\n\nUse /upload.\n\nSee /help.", quote=True)
+    await m.reply_text(text=f"📋 Link Info:\n\nFile: `{fn}`\n\nاز این استفاده کن /upload.\n\nSee /help.", quote=True)
     return
   else:
     url = m.text.strip()
@@ -45,7 +45,7 @@ async def linfo2(bot , m):
             cfname = cfname.split("\"")[1]
           mt = mimetypes.guess_type(str(cfname))[0]
         else:
-          await m.reply_text(text=f"I Could not Determine The FileType !\nPlease Use Custom Filename With Extension\n\nSee /help.", quote=True)
+          await m.reply_text(text=f"حقیقتش ریدم فایل پشم ریزونی بود /help.", quote=True)
           return
       except RequestException as e:
         await m.reply_text(text=f"Error:\n\n{e}", quote=True)
@@ -55,4 +55,4 @@ async def linfo2(bot , m):
   url_size = int(r.headers.get("content-length", 0))
   url_size = get_size(url_size)
 
-  await m.reply_text(text=f"📋 Link Info:\n\nFile: `{cfname}`\nMime-Type: `{mt}`\nSize: `{url_size}`\n\nUse /upload as reply to your link, it will upload your link to telegram.\n\nSee /help.", quote=True)
+  await m.reply_text(text=f"📋 Link Info:\n\nFile: `{cfname}`\nMime-Type: `{mt}`\nSize: `{url_size}`\n\nاز /upload استفاده کن داداشی\n\nSee /help.", quote=True)
