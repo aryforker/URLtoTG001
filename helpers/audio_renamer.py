@@ -21,12 +21,12 @@ async def rna2(bot , u):
   file_path = None
   
   if not u.reply_to_message:
-    await u.reply_text(text=f"Please Reply To Your Audio !\n\nExample:\n**/rna | filename**\n\nsee /help.", quote=True)
+    await u.reply_text(text=f" روی اهنگت ریپلای بزن!\n\nExample:\n**/rna | filename**\n\nsee /help.", quote=True)
     return
   
   logger.info(f"status: {status}")
   if status:
-    await u.reply_text(text=f"wait until last process finish. then try again.", quote=True)
+    await u.reply_text(text=f"لطفا کمی صبر میل کنید", quote=True)
     return
 
   m = u.reply_to_message
@@ -35,7 +35,7 @@ async def rna2(bot , u):
     ft = m.document or m.audio
     fsize = get_size(ft.file_size)
   else:
-    await m.reply_text(text=f"Please Reply To Audio Files !\n\nSee /help", quote=True)
+    await m.reply_text(text=f"خواهش میکنم رو اهنگت ریپ بزن\n\nSee /help", quote=True)
     logger.info(f"No Audio File !")
     return
   
@@ -46,7 +46,7 @@ async def rna2(bot , u):
   elif (ft.file_name) and (os.path.splitext(ft.file_name)[1] in audio_types):
     pass
   else:
-    await m.reply_text(text=f"Please Reply To Audio Files !\n\nSee /help", quote=True)
+    await m.reply_text(text=f"خواهش میکنم رو اهنگت ریپ بزن\n\nSee /help", quote=True)
     logger.info(f"No Audio File !")
     return
   
@@ -69,14 +69,14 @@ async def rna2(bot , u):
   #########################
   args = u.text.split("|")
   if len(args) <= 1:
-    await m.reply_text(text=f"are you kidding me ?\n\nExample:\n`/rna | filename`\n\nsee /hlep.", quote=True)
+    await m.reply_text(text=f"ریدی\n\nExample:\n`/rna | filename`\n\nsee /hlep.", quote=True)
     return
   #########################
   if len(args) == 2:
     cmd, newname = u.text.split("|", 1)
     newname = newname.strip()
     if newname == "-":
-      await m.reply_text(text=f"are you kidding me ?\n\nExample:\n`/rna | filename`\n\nsee /hlep.", quote=True)
+      await m.reply_text(text=f"ریدی\n\nExample:\n`/rna | filename`\n\nsee /hlep.", quote=True)
       return
                   
     if m.audio and m.audio.title:
@@ -95,7 +95,7 @@ async def rna2(bot , u):
                   
     if newname == "-":
       if newtitle == "-":
-        await m.reply_text(text=f"are you kidding me ?\n\nExample:\n`/rna | filename`\n\nsee /hlep.", quote=True)
+        await m.reply_text(text=f"ریدی\n\nExample:\n`/rna | filename`\n\nsee /hlep.", quote=True)
         return  
                   
     if newname == "-":
@@ -119,7 +119,7 @@ async def rna2(bot , u):
     if newname == "-":
       if newtitle == "-":
         if newartist == "-":
-          await m.reply_text(text=f"are you kidding me ?\n\nExample:\n`/rna | filename`\n\nsee /hlep.", quote=True)
+          await m.reply_text(text=f"ریدی\n\nExample:\n`/rna | filename`\n\nsee /hlep.", quote=True)
           return
           
     if newname == "-":
@@ -138,7 +138,7 @@ async def rna2(bot , u):
         newartist = None
 
   else:
-    await m.reply_text(text=f"Try Again !\n\nExample:\n**/rna | filename**\n**/rna | filename | title(optional) | artists(optional)**", quote=True)
+    await m.reply_text(text=f"بازم تست کن\n\nExample:\n**/rna | filename**\n**/rna | filename | title(optional) | artists(optional)**", quote=True)
     return
 
   if os.path.splitext(newname)[1]:
@@ -157,7 +157,7 @@ async def rna2(bot , u):
   status = True
   logger.info(f"status: {status}")
   
-  msg = await m.reply_text(text=f"⬇️ Trying To Download Audio", quote=True)
+  msg = await m.reply_text(text=f"⬇️ درحال داملود میباشم", quote=True)
 
   c_time = time.time()
   file_path = await bot.download_media(
@@ -173,7 +173,7 @@ async def rna2(bot , u):
   logger.info(f"file_path: {file_path}")
   if not file_path:
     status = False
-    await msg.edit(f"❌ Downloading Audio Failed !")
+    await msg.edit(f"❌ ریدم دانلود نشد")
     logger.info(f"status: {status}")
     await clean_up(file_path)
     return
@@ -193,7 +193,7 @@ async def rna2(bot , u):
         if not newartist:
           newartist = probe["format"]["tags"]["artist"]
 
-    await msg.edit(f"⬆️ Trying to Upload as Audio ...")
+    await msg.edit(f"⬆️ درحال اپلود  میباشم ")
       
     c_time = time.time()
     try:
@@ -220,5 +220,5 @@ async def rna2(bot , u):
     except Exception as e:
       status = False
       logger.info(f"status: {status}")
-      await msg.edit(f"❌ Uploading as Audio Failed **Error:**\n\n{e}")
+      await msg.edit(f"❌ ریدم اپلود نشد**Error:**\n\n{e}")
       await clean_up(file_path)
