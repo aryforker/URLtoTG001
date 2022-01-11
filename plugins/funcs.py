@@ -25,81 +25,6 @@ from helpers.link_info import linfo2
 
 logger = logging.getLogger(__name__)
 
-HELP_TXT = """
-یک بات ساده به یادخاله ام مریم عمه ام نیلوفر و رفیق عزیزم مجید و داییم حشمت و عمویم علیرضا 
-خودمم عالیانا
-
-فایل اهنگو بفرس
-سپس این متن پایینی رو ریپلای بزن روش
-/rna .to.ye.torki
-
-ویژگی خیلی داره بات از رِیسم بپرس برای اطلاعات بیشتر 
-@aryana_gha
-"""
-
-@Client.on_message(filters.command(["start"]))
-async def start(client , m):
-    """Send a message when the command /start is issued."""
-    await m.reply_text(text=f"دلام \n\nبمال /help برای اموزش")
-
-    
-@Client.on_message(filters.command(["help"]))
-async def help(client , m):
-    """Send a message when the command /help is issued."""
-    await m.reply_text(text=f"{HELP_TXT}")   
-
-@Client.on_message(filters.private & filters.command(["rnv"]))
-async def rnv1(client , u):
-
-    if u.from_user.id in Config.AUTH_USERS:
-        await rnv2(client , u)
-    elif not Config.AUTH_USERS:
-        await rnv2(client , u)
-    else:
-        await u.reply_text(text=f"ارمین شمارو بون کرده سیکتیر )", quote=True, disable_web_page_preview=True)
-        return
-    
-@Client.on_message(filters.private & filters.command(["rna"]))
-async def rna1(client , u):
-
-    if u.from_user.id in Config.AUTH_USERS:
-        await rna2(client , u)
-    elif not Config.AUTH_USERS:
-        await rna2(client , u)
-    else:
-        await u.reply_text(text=f"ارمین شمارو بون کرده سیکتیر)", quote=True, disable_web_page_preview=True)
-        return
-
-@Client.on_message(filters.private & filters.command(["rnf"]))
-async def rnf1(client , u):
-
-    if u.from_user.id in Config.AUTH_USERS:
-        await rnf2(client , u) 
-    elif not Config.AUTH_USERS:
-        await rnf2(client , u)
-    else:
-        await u.reply_text(text=f"ارمین شمارو بون کرده سیکتیر)", quote=True, disable_web_page_preview=True)
-        return
-   
-@Client.on_message(filters.private & filters.command(["c2v"]))
-async def to_video1(client , u):
-
-    if u.from_user.id in Config.AUTH_USERS:
-        await to_video2(client , u) 
-    elif not Config.AUTH_USERS:
-        await to_video2(client , u) 
-    else:
-        await u.reply_text(text=f"ارمین شمارو بون کرده سیکتیر)", quote=True, disable_web_page_preview=True)
-        return
-    
-@Client.on_message(filters.private & (filters.audio | filters.document | filters.video))
-async def cinfo1(client , m):
-    await cinfo2(client , m)
-
-
-@Client.on_message(filters.private & filters.incoming & filters.text & (filters.regex('^(ht|f)tp*')))
-async def linfo1(client , m):
-    await linfo2(client , m)
 
 @Client.on_message(filters.private & filters.command(["upload"]))
 async def leecher1(client , u):
@@ -109,5 +34,5 @@ async def leecher1(client , u):
     elif not Config.AUTH_USERS:
         await leecher2(client , u)
     else:
-        await u.reply_text(text=f"ارمین شمارو بون کرده سیکتیر)", quote=True, disable_web_page_preview=True)
+        await u.reply_text(text=f" بون شدید ", quote=True, disable_web_page_preview=True)
         return
