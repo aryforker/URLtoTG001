@@ -104,10 +104,37 @@ async def linfo1(client , m):
 @Client.on_message(filters.private & filters.command(["upload"]))
 async def leecher1(client , u):
 
-    if u.from_user.id in Config.AUTH_USERS:
-        await leecher2(client , u)
-    elif not Config.AUTH_USERS:
-        await leecher2(client , u)
-    else:
-        await u.reply_text(text=f"ارمین شمارو بون کرده سیکتیر)", quote=True, disable_web_page_preview=True)
+async def pyro_fsub(c, message, fsub):
+    try:
+        user = await c.get_chat_member(fsub, message.chat.id)
+        if user.status == "kicked":
+            await c.send_message(
+                chat_id=message.chat.id,
+                text="Sorry, You are Banned to use me.",
+                parse_mode="markdown",
+                disable_web_page_preview=True
+            )
+            return False
+        return True
+    except UserNotParticipant:
+        await c.send_message(
+            chat_id=message.chat.id,
+            text="**Please Join My Updates Channel to Use Me!**",
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("Join Now", url=f"https://t.me/the_aryana_py")
+                    ]
+                ]
+            )
+        )
+        return False
+    except Exception as kk:
+        print(kk)
+        await c.send_message(
+            chat_id=message.chat.id,
+            text="Something went Wrong.",
+            parse_mode="markdown",
+            disable_web_page_preview=True)
+        return False
         return
