@@ -36,6 +36,16 @@ HELP_TXT = """
 ویژگی خیلی داره بات از رِیسم بپرس برای اطلاعات بیشتر 
 @aryana_gha
 """
+UPDTE_CHNL = os.environ.get("UPDTE_CHNL")
+LOG_CHNL = os.environ.get("LOG_CHNL")
+
+@Client.on_message(filters.regex(pattern=".*http.* (.*)"))
+async def uloader(client, message):
+    global is_downloading
+
+    if UPDTE_CHNL:
+        if not (await pyro_fsub(client, message, UPDTE_CHNL) == True):
+            return
 
 @Client.on_message(filters.command(["start"]))
 async def start(client , m):
@@ -110,7 +120,7 @@ async def pyro_fsub(c, message, fsub):
         if user.status == "kicked":
             await c.send_message(
                 chat_id=message.chat.id,
-                text="Sorry, You are Banned to use me.",
+                text="متاسفانه شما در لیست بن شدگان قرار دارید ",
                 parse_mode="markdown",
                 disable_web_page_preview=True
             )
@@ -119,22 +129,12 @@ async def pyro_fsub(c, message, fsub):
     except UserNotParticipant:
         await c.send_message(
             chat_id=message.chat.id,
-            text="**Please Join My Updates Channel to Use Me!**",
+            text="**لطفا اول در چنل ما عضو بشوید**",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("Join Now", url=f"https://t.me/the_aryana_py")
+                        InlineKeyboardButton("جوین شدن", url=f"https://t.me/{UPDTE_CHNL}")
                     ]
                 ]
             )
         )
-        return False
-    except Exception as kk:
-        print(kk)
-        await c.send_message(
-            chat_id=message.chat.id,
-            text="Something went Wrong.",
-            parse_mode="markdown",
-            disable_web_page_preview=True)
-        return False
-        return
